@@ -12,7 +12,7 @@ LacDa is a fine-tuned natural language processing model derived from LLama2, tai
 - **Fine-tuned from:** LLama2
 - **Domain:** Vietnamese Chat Bot
 
-| [Model](https://huggingface.co/willnguyen/lacda-2-7B-chat-v0.1) | [Demo](https://colab.research.google.com/drive/17oPXpD6J_1KRfX2JooaYYOiP9ULDE7bW) | 
+| [Huggingface Model](https://huggingface.co/willnguyen/lacda-2-7B-chat-v0.1) | [Colab Demo](https://colab.research.google.com/drive/17oPXpD6J_1KRfX2JooaYYOiP9ULDE7bW) | 
 
 LacDa leverages LLama2's advanced language capabilities and extends them to excel in domain-specific tasks.
 ## What is different?
