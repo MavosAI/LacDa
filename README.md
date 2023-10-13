@@ -9,7 +9,7 @@ LacDa is a fine-tuned natural language processing model derived from LLama2, tai
 ## Model Description
 
 - **Model Name:** LacDa
-- **Fine-tuned from:** LLama2
+- **Fine-tuned from:** [LLama2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf)
 - **Domain:** Vietnamese Chat Bot
 
 | [Huggingface Model](https://huggingface.co/willnguyen/lacda-2-7B-chat-v0.1) | [Colab Demo](https://colab.research.google.com/drive/1akx1fZihH5hspLBhJzL3EDHp1PwGCSCC) | 
@@ -17,8 +17,16 @@ LacDa is a fine-tuned natural language processing model derived from LLama2, tai
 LacDa leverages LLama2's advanced language capabilities and extends them to excel in domain-specific tasks.
 ## What is different?
 
-I mainly focus on data preparation by leverage the trl.SFTTrainer because they have a packing class for concatenate the training example.
-However the `ConstantLengthDataset` from original does not have option to disable the `add_special_tokens=False` and the start of an example does not always start with `<s>` token. So I customize the `ConstantLengthDataset`! 
+- 10K instructions data: [openassistant-guanaco](https://huggingface.co/datasets/timdettmers/openassistant-guanaco)
+
+- Modified [ConstantLengthDataset](https://github.com/huggingface/trl/blob/main/trl/trainer/utils.py#L482) in SFTTrainer
+  - `add_special_tokens=False`
+  - Make sure instruction in every batch start with `<s>` and full instruction
+  - Convert other chat template to LLama2 chat template
+
+## Benchmark 
+
+- In progress
 
 ## LacDa Repository To-Do List
 

@@ -1,25 +1,19 @@
-from ast import arg
-import os, torch, logging
+import os, torch
 from datasets import load_dataset
-from traitlets import default
 import transformers
 from transformers import (
-    Trainer,
     AutoModelForCausalLM,
     AutoTokenizer,
     BitsAndBytesConfig,
-    TrainingArguments,
     GenerationConfig,
-    TextIteratorStreamer,
 )
 from peft import LoraConfig, PeftModel, get_peft_model
 from peft.utils import prepare_model_for_kbit_training
-from peft.tuners.lora import LoraLayer
 from trl import SFTTrainer
 import bitsandbytes as bnb
 from datasets import load_dataset
 from dataclasses import dataclass, field
-from typing import Optional, Dict, Sequence, List
+from typing import Optional
 import argparse
 from os.path import exists, join, isdir
 from torch.utils.data import IterableDataset
@@ -27,7 +21,6 @@ import torch
 import random
 import warnings
 import torch.nn.functional as F
-import re
 
 
 class ConstantLengthDataset(IterableDataset):
@@ -365,17 +358,19 @@ def find_all_linear_names(args, model):
 
 def get_last_checkpoint(checkpoint_dir):
     if isdir(checkpoint_dir):
-        is_completed = exists(join(checkpoint_dir, 'completed'))
-        if is_completed: return None, True # already finished
+        is_completed = exists(join(checkpoint_dir, "completed"))
+        if is_completed:
+            return None, True  # already finished
         max_step = 0
         for filename in os.listdir(checkpoint_dir):
-            if isdir(join(checkpoint_dir, filename)) and filename.startswith('checkpoint'):
-                max_step = max(max_step, int(filename.replace('checkpoint-', '')))
-        if max_step == 0: return None, is_completed # training started, but no checkpoint
-        checkpoint_dir = join(checkpoint_dir, f'checkpoint-{max_step}')
+            if isdir(join(checkpoint_dir, filename)) and filename.startswith("checkpoint"):
+                max_step = max(max_step, int(filename.replace("checkpoint-", "")))
+        if max_step == 0:
+            return None, is_completed  # training started, but no checkpoint
+        checkpoint_dir = join(checkpoint_dir, f"checkpoint-{max_step}")
         print(f"Found a previous checkpoint at: {checkpoint_dir}")
-        return checkpoint_dir, is_completed # checkpoint found!
-    return None, False # first training
+        return checkpoint_dir, is_completed  # checkpoint found!
+    return None, False  # first training
 
 
 def transform_conversation(example):
