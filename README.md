@@ -34,7 +34,7 @@ A checklist of tasks to manage and improve the LacDa project repository.
 
 ### Model Accuracy
 - [ ] Train with large instruction dataset such as Open-Orca, Dolly-15k, Alpaca, ...
-
+- [ ] Use [Mistral](https://github.com/mistralai/mistral-src) model
 ### CPU
 - [ ] Implement quantization using [llama.cpp](https://github.com/ggerganov/llama.cpp)
 
