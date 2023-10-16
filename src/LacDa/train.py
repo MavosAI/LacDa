@@ -173,6 +173,7 @@ class ConstantLengthDataset(IterableDataset):
                     random.shuffle(examples)
                 for example in examples:
                     self.current_size += 1
+                    # must return a dictionary, due to DataCollatorForLanguageModeling pad the input_ids to the max_length of model
                     yield {
                         "input_ids": torch.LongTensor(example),
                         "labels": torch.LongTensor(example),
@@ -433,7 +434,10 @@ def setup_tokenizer(args):
         trust_remote_code=args.trust_remote_code,
         use_auth_token=args.use_auth_token,
     )
-    tokenizer.pad_token_id = 0
+    # Default collator is DataCollatorForLanguageModeling which need tokenizer has pad_token_id
+    # and ignore cross entropy in loss computing (ignore_index=-100)
+    # labels[labels == self.tokenizer.pad_token_id] = -100
+    tokenizer.pad_token_id = 0 # 0 mean unknown_token
     return tokenizer
 
 
