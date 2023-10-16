@@ -24,6 +24,10 @@ LacDa leverages LLama2's advanced language capabilities and extends them to exce
   - Make sure instruction in every batch start with `<s>` and full instruction
   - Convert other chat template to LLama2 chat template
 
+- Training techniques:
+  - Lora/QLora
+  - Bitsandbytes - 4bits training
+  - Mix precision training
 ## Benchmark 
 
 - In progress
