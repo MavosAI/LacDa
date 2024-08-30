@@ -1,4 +1,4 @@
-# LacDa - A Vietnamese Chat Bot
+# LacDa - A research project finetune from LLama2 on a small instruction dataset
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
 <a target="_blank" href="https://colab.research.google.com/drive/1akx1fZihH5hspLBhJzL3EDHp1PwGCSCC">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
